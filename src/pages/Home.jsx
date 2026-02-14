@@ -11,15 +11,36 @@ export default function Home() {
     setTimeout(() => setLoaded(true), 2500);
   }, []);
 
-  // 🎵 BACKGROUND MUSIC
-  useEffect(() => {
-    const audio = new Audio("/home.mp3"); 
-    audio.loop = true;
-    audio.volume = 0;
-    audioRef.current = audio;
+ // 🎵 BACKGROUND MUSIC
+useEffect(() => {
+  const audio = new Audio("/home.mp3");
+  audio.loop = true;
+  audio.volume = 0.7; // start audible
+  audio.preload = "auto";
 
-    const startMusic = () => {
-      audio.play().catch(() => {});
+  audioRef.current = audio;
+
+  const startMusic = () => {
+    audio.play()
+      .then(() => {
+        console.log("Music playing ✅");
+      })
+      .catch(err => {
+        console.log("Play blocked:", err);
+      });
+
+    document.removeEventListener("click", startMusic);
+  };
+
+  // required for mobile autoplay
+  document.addEventListener("click", startMusic);
+  document.addEventListener("touchstart", startMusic);
+
+  return () => {
+    audio.pause();
+    audio.currentTime = 0;
+  };
+}, []);
 
       // 🎬 cinematic fade-in
       let vol = 0;
