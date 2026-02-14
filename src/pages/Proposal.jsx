@@ -18,9 +18,8 @@ export default function Proposal() {
       loop: true,
     });
 
-    document.addEventListener("click", () => {
-  music.play();
-}, { once: true });
+     music.play();
+
 
     let vol = 0;
     const fade = setInterval(() => {
