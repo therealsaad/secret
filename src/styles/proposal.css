@@ -1,0 +1,66 @@
+.proposal-container {
+    height: 100vh;
+    background: radial-gradient(circle at center, #000 0%, #1a001f 60%, #000 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  .intro h1 {
+    font-size: 2rem;
+    animation: glow 2s infinite alternate;
+  }
+  
+  .trap {
+    font-size: 1.5rem;
+    cursor: pointer;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .final h1 {
+    font-size: 2rem;
+  }
+  
+  .final h2 {
+    margin-top: 20px;
+  }
+  
+  .buttons {
+    margin-top: 30px;
+  }
+  
+  .yes {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #ff0066, #ff66cc);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .yes:hover {
+    transform: scale(1.1);
+  }
+  
+  .engaged h1 {
+    font-size: 2rem;
+    color: gold;
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  @keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 30px red; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  

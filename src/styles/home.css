@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: black;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+  
+  .galaxy {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  /* loader */
+  
+  .loader {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  
+  /* content */
+  
+  .content h1 {
+    font-size: 3rem;
+    background: linear-gradient(90deg, #ff4ecd, #7afcff);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 3s infinite alternate;
+  }
+  
+  .content p {
+    opacity: 0.8;
+    margin-top: 10px;
+  }
+  
+  .love-btn {
+    margin-top: 25px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ff4ecd, #7afcff);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .love-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* glowing text */
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #ff4ecd; }
+    to { text-shadow: 0 0 25px #7afcff; }
+  }
+  
+  /* 💖 hearts */
+  
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    width: 15px;
+    height: 15px;
+    background: red;
+    transform: rotate(45deg);
+    animation: floatUp linear forwards;
+  }
+  
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
+  }
+  
+  .heart::before { top: -7px; left: 0; }
+  .heart::after { left: -7px; top: 0; }
+  
+  @keyframes floatUp {
+    to {
+      transform: translateY(-100vh) rotate(45deg);
+      opacity: 0;
+    }
+  }
+  /* 🎵 music pulse indicator */
+.music-indicator {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  color: white;
+  font-size: 14px;
+  opacity: 0.7;
+  letter-spacing: 2px;
+  animation: musicPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes musicPulse {
+  0% { transform: scale(1); opacity: .6; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: .6; }
+}
