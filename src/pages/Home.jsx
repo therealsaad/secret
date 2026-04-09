@@ -15,7 +15,7 @@ export default function Home() {
 useEffect(() => {
   const audio = new Audio("/home.mp3");
   audio.loop = true;
-  audio.volume = 0.7; // start audible
+  audio.volume = 0; // start silent for fade-in
   audio.preload = "auto";
 
   audioRef.current = audio;
@@ -24,43 +24,31 @@ useEffect(() => {
     audio.play()
       .then(() => {
         console.log("Music playing ✅");
+        // 🎬 cinematic fade-in
+        let vol = 0;
+        const fade = setInterval(() => {
+          if (vol < 0.7) {
+            vol += 0.03;
+            audio.volume = vol;
+          } else {
+            clearInterval(fade);
+          }
+        }, 200);
       })
       .catch(err => {
         console.log("Play blocked:", err);
       });
-
-    document.removeEventListener("click", startMusic);
   };
 
-  // required for mobile autoplay
-  document.addEventListener("click", startMusic);
-  document.addEventListener("touchstart", startMusic);
+  // mobile autoplay fix
+  document.addEventListener("click", startMusic, { once: true });
+  document.addEventListener("touchstart", startMusic, { once: true });
 
   return () => {
     audio.pause();
     audio.currentTime = 0;
   };
 }, []);
-
-      // 🎬 cinematic fade-in
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 0.7) {
-          vol += 0.03;
-          audio.volume = vol;
-        } else {
-          clearInterval(fade);
-        }
-      }, 200);
-    };
-
-    // mobile autoplay fix
-    document.addEventListener("click", startMusic, { once: true });
-
-    return () => {
-      audio.pause();
-    };
-  }, []);
 
   // 🌌 galaxy + shooting meteors
   useEffect(() => {
