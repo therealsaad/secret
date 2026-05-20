@@ -1,28 +1,44 @@
 .special-container {
   text-align: center;
   padding: 20px;
-  padding-top: 80px;
+  padding-top: 100px;
   min-height: 100vh;
   background: linear-gradient(180deg, #0a0e27, #141829, #1a1f3a);
   color: white;
   overflow: hidden;
+  position: relative;
+}
+
+.special-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.1), transparent 70%);
+  animation: pulse 4s infinite ease-in-out;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .title {
-  font-size: clamp(24px, 6vw, 32px);
-  margin-bottom: 20px;
-  animation: fadeIn 2s ease-in-out;
-  font-weight: 700;
+  font-size: clamp(28px, 8vw, 48px);
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease-in-out, textGlow 3s ease-in-out infinite;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
 }
 
 #map {
-  height: clamp(280px, 60vw, 400px);
+  height: clamp(300px, 50vw, 450px);
   width: 95%;
-  max-width: 600px;
-  margin: auto;
-  border-radius: 20px;
+  max-width: 700px;
+  margin: 30px auto;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 0 40px rgba(255, 20, 147, 0.3);
+  box-shadow: 0 0 50px rgba(255, 20, 147, 0.4), inset 0 0 20px rgba(255, 20, 147, 0.1);
+  border: 2px solid rgba(255, 20, 147, 0.2);
+  position: relative;
+  z-index: 1;
 }
   
   .distance {

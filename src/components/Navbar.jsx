@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Heart, MessageCircle } from "lucide-react";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu and scroll to top when route changes
+  useEffect(() => {
+    setOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   const navItems = [
     { label: "Home", path: "/", icon: null },

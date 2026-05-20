@@ -14,26 +14,29 @@ function AppRoutes() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.4 }}
-      >
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/story" element={<Story />} />
-          <Route path="/reasons" element={<Reasons />} />
-          <Route path="/proposal" element={<Proposal />} />
-          <Route path="/special" element={<Special />} />
-          <Route path="/whyily" element={<Reasons />} />
-          <Route path="/trend" element={<Trends />} />
-          <Route path="/chat" element={<Chat />} />
-        </Routes>
-      </motion.div>
-    </AnimatePresence>
+    <Routes>
+      <Route path="/" element={<AnimatedPageWrapper><Home /></AnimatedPageWrapper>} />
+      <Route path="/story" element={<AnimatedPageWrapper><Story /></AnimatedPageWrapper>} />
+      <Route path="/reasons" element={<AnimatedPageWrapper><Reasons /></AnimatedPageWrapper>} />
+      <Route path="/proposal" element={<AnimatedPageWrapper><Proposal /></AnimatedPageWrapper>} />
+      <Route path="/special" element={<AnimatedPageWrapper><Special /></AnimatedPageWrapper>} />
+      <Route path="/whyily" element={<AnimatedPageWrapper><Reasons /></AnimatedPageWrapper>} />
+      <Route path="/trend" element={<AnimatedPageWrapper><Trends /></AnimatedPageWrapper>} />
+      <Route path="/chat" element={<AnimatedPageWrapper><Chat /></AnimatedPageWrapper>} />
+    </Routes>
+  );
+}
+
+function AnimatedPageWrapper({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4 }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
