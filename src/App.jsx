@@ -6,8 +6,7 @@ import Reasons from "./pages/Reasons";
 import Special from "./pages/Special";
 import Proposal from "./pages/Proposal";
 import Trends from "./pages/Trends";
-
-
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -18,12 +17,10 @@ function App() {
         <Route path="/story" element={<Story />} />
         <Route path="/reasons" element={<Reasons />} />
         <Route path="/proposal" element={<Proposal />} />
-
         <Route path="/special" element={<Special />} />
         <Route path="/whyily" element={<Reasons />} />
-        <Route path="/trend" element={<Trends/>} />
-        
-
+        <Route path="/trend" element={<Trends />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </Router>
   );

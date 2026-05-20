@@ -1,26 +1,29 @@
 .special-container {
-    text-align: center;
-    padding: 20px;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #020024, #090979, #000);
-    color: white;
-    overflow: hidden;
-  }
-  
-  .title {
-    font-size: 28px;
-    margin-bottom: 15px;
-    animation: fadeIn 2s ease-in-out;
-  }
-  
-  #map {
-    height: 360px;
-    width: 92%;
-    margin: auto;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(255, 0, 90, 0.6);
-  }
+  text-align: center;
+  padding: 20px;
+  padding-top: 80px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0e27, #141829, #1a1f3a);
+  color: white;
+  overflow: hidden;
+}
+
+.title {
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
+  font-weight: 700;
+}
+
+#map {
+  height: clamp(280px, 60vw, 400px);
+  width: 95%;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(255, 20, 147, 0.3);
+}
   
   .distance {
     margin-top: 15px;

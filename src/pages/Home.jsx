@@ -1,64 +1,56 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Heart, Sparkles, Music } from "lucide-react";
 import "../styles/home.css";
 
 export default function Home() {
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // 🎬 cinematic intro loader
   useEffect(() => {
     setTimeout(() => setLoaded(true), 2500);
   }, []);
 
- // 🎵 BACKGROUND MUSIC
-useEffect(() => {
-  const audio = new Audio("/home.mp3");
-  audio.loop = true;
-  audio.volume = 0.7; // start audible
-  audio.preload = "auto";
+  // 🎵 BACKGROUND MUSIC
+  useEffect(() => {
+    const audio = new Audio("/home.mp3");
+    audio.loop = true;
+    audio.volume = 0;
+    audio.preload = "auto";
+    audioRef.current = audio;
 
-  audioRef.current = audio;
+    const startMusic = () => {
+      audio.play()
+        .then(() => {
+          setIsPlaying(true);
+          // Fade in effect
+          let vol = 0;
+          const fade = setInterval(() => {
+            if (vol < 0.7) {
+              vol += 0.02;
+              audio.volume = vol;
+            } else {
+              clearInterval(fade);
+            }
+          }, 100);
+        })
+        .catch(err => {
+          console.log("Audio play blocked:", err);
+        });
 
-  const startMusic = () => {
-    audio.play()
-      .then(() => {
-        console.log("Music playing ✅");
-      })
-      .catch(err => {
-        console.log("Play blocked:", err);
-      });
-
-    document.removeEventListener("click", startMusic);
-  };
-
-  // required for mobile autoplay
-  document.addEventListener("click", startMusic);
-  document.addEventListener("touchstart", startMusic);
-
-  return () => {
-    audio.pause();
-    audio.currentTime = 0;
-  };
-}, []);
-
-      // 🎬 cinematic fade-in
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 0.7) {
-          vol += 0.03;
-          audio.volume = vol;
-        } else {
-          clearInterval(fade);
-        }
-      }, 200);
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("touchstart", startMusic);
     };
 
-    // mobile autoplay fix
-    document.addEventListener("click", startMusic, { once: true });
+    document.addEventListener("click", startMusic);
+    document.addEventListener("touchstart", startMusic);
 
     return () => {
       audio.pause();
+      audio.currentTime = 0;
     };
   }, []);
 
@@ -104,7 +96,6 @@ useEffect(() => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // ⭐ stars
       ctx.fillStyle = "white";
       stars.forEach((s) => {
         ctx.beginPath();
@@ -115,7 +106,6 @@ useEffect(() => {
         if (s.y < 0) s.y = canvas.height;
       });
 
-      // 🌠 meteors
       meteors.forEach((m, index) => {
         ctx.beginPath();
         const gradient = ctx.createLinearGradient(
@@ -161,29 +151,113 @@ useEffect(() => {
 
   if (!loaded) {
     return (
-      <div className="loader">
-        <h1>Loading Love...</h1>
-      </div>
+      <motion.div
+        className="loader"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.h1
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          Loading Love...
+        </motion.h1>
+      </motion.div>
     );
   }
 
   return (
-    <div className="home" onClick={createHearts}>
+    <motion.div
+      className="home"
+      onClick={createHearts}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <canvas ref={canvasRef} className="galaxy"></canvas>
 
-      {/* 🎵 music glow indicator */}
-      <div className="music-indicator">
-        🎵 playing
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute w-96 h-96 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          style={{ top: '20%', left: '10%' }}
+        />
       </div>
 
-      <div className="content">
-        <h1>Our Universe 💫</h1>
-        <p>
+      {/* Music indicator */}
+      {isPlaying && (
+        <motion.div
+          className="music-indicator"
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <Music className="w-4 h-4" />
+          <span>Now Playing</span>
+        </motion.div>
+      )}
+
+      <motion.div
+        className="content relative z-10"
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <motion.h1
+          className="text-5xl md:text-7xl font-bold mb-4 gradient-text"
+          animate={{ textShadow: ['0 0 20px rgba(255,20,147,0.3)', '0 0 40px rgba(255,20,147,0.6)', '0 0 20px rgba(255,20,147,0.3)'] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          Our Universe 💫
+        </motion.h1>
+
+        <motion.p
+          className="text-lg md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
+          animate={{ opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
           Even across distance, our hearts beat in the same sky.
-        </p>
+        </motion.p>
 
-        <button className="love-btn">Explore Love</button>
-      </div>
-    </div>
+        <motion.div
+          className="flex gap-4 justify-center flex-wrap"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <motion.button
+            className="btn btn-primary flex items-center gap-2"
+            whileHover={{ scale: 1.05, boxShadow: '0 8px 30px rgba(255,20,147,0.5)' }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Heart className="w-5 h-5" />
+            Explore Love
+          </motion.button>
+
+          <motion.button
+            className="btn btn-glass flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Sparkles className="w-5 h-5" />
+            Learn More
+          </motion.button>
+        </motion.div>
+      </motion.div>
+
+      {/* Tap indicator */}
+      <motion.div
+        className="absolute bottom-10 text-center text-sm text-gray-400"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <p>Click to celebrate 💕</p>
+      </motion.div>
+    </motion.div>
   );
 }

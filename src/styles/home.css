@@ -1,122 +1,161 @@
 body {
-    margin: 0;
-    overflow-x: hidden;
-    background: black;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--bg-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.home {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.galaxy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* loader */
+.loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-primary);
+  color: white;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+/* content */
+.content h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin: 0 0 24px 0;
+  animation: glow 3s infinite alternate;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.content p {
+  opacity: 0.8;
+  margin-top: 10px;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* 💖 hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  width: 15px;
+  height: 15px;
+  background: var(--accent-pink);
+  transform: rotate(45deg);
+  animation: floatUp linear forwards;
+  border-radius: 50%;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: var(--accent-pink);
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -7px;
+  left: 0;
+}
+
+.heart::after {
+  left: -7px;
+  top: 0;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-100vh) rotate(45deg);
+    opacity: 0;
   }
-  
-  .home {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    position: relative;
+}
+
+/* glowing text */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px var(--accent-pink);
   }
-  
-  .galaxy {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+  to {
+    text-shadow: 0 0 25px var(--accent-pink);
   }
-  
-  /* loader */
-  
-  .loader {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: black;
-    color: white;
-    font-size: 2rem;
-    letter-spacing: 2px;
-  }
-  
-  /* content */
-  
-  .content h1 {
-    font-size: 3rem;
-    background: linear-gradient(90deg, #ff4ecd, #7afcff);
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: glow 3s infinite alternate;
-  }
-  
-  .content p {
-    opacity: 0.8;
-    margin-top: 10px;
-  }
-  
-  .love-btn {
-    margin-top: 25px;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #ff4ecd, #7afcff);
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .love-btn:hover {
-    transform: scale(1.1);
-  }
-  
-  /* glowing text */
-  @keyframes glow {
-    from { text-shadow: 0 0 10px #ff4ecd; }
-    to { text-shadow: 0 0 25px #7afcff; }
-  }
-  
-  /* 💖 hearts */
-  
-  .heart {
-    position: fixed;
-    bottom: -20px;
-    width: 15px;
-    height: 15px;
-    background: red;
-    transform: rotate(45deg);
-    animation: floatUp linear forwards;
-  }
-  
-  .heart::before,
-  .heart::after {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: red;
-    border-radius: 50%;
-  }
-  
-  .heart::before { top: -7px; left: 0; }
-  .heart::after { left: -7px; top: 0; }
-  
-  @keyframes floatUp {
-    to {
-      transform: translateY(-100vh) rotate(45deg);
-      opacity: 0;
-    }
-  }
-  /* 🎵 music pulse indicator */
+}
+
+/* 🎵 music pulse indicator */
 .music-indicator {
   position: fixed;
   bottom: 25px;
   left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: white;
   font-size: 14px;
   opacity: 0.7;
   letter-spacing: 2px;
   animation: musicPulse 1.2s infinite ease-in-out;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 20px;
 }
 
 @keyframes musicPulse {
-  0% { transform: scale(1); opacity: .6; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); opacity: .6; }
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home {
+    padding: 20px;
+  }
+
+  .music-indicator {
+    bottom: 15px;
+    left: 15px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
 }
