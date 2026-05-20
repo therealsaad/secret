@@ -52,43 +52,162 @@ body {
   font-size: clamp(1rem, 3vw, 1.5rem);
 }
 
-/* 💖 hearts */
+/* 💖 MEGA HEARTS with glow */
 .heart {
   position: fixed;
   bottom: -20px;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   background: var(--accent-pink);
   transform: rotate(45deg);
-  animation: floatUp linear forwards;
-  border-radius: 50%;
+  animation: floatUp 4s linear forwards, heartGlow 2s ease-in-out infinite;
+  border-radius: 3px;
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
 }
 
 .heart::before,
 .heart::after {
   content: "";
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   background: var(--accent-pink);
   border-radius: 50%;
 }
 
 .heart::before {
-  top: -7px;
+  top: -10px;
   left: 0;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
 }
 
 .heart::after {
-  left: -7px;
+  left: -10px;
   top: 0;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
 }
 
 @keyframes floatUp {
-  to {
-    transform: translateY(-100vh) rotate(45deg);
+  0% {
+    transform: translateY(0) rotate(45deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(45deg) scale(0);
     opacity: 0;
   }
+}
+
+@keyframes heartGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 20, 147, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 20, 147, 1));
+  }
+}
+
+/* 💥 Light burst effect */
+.light-burst {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+  margin-top: -100px;
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.8), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: lightBurstAnim 1.2s ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes lightBurstAnim {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+/* ✨ Particles */
+.particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #ff1493, #ff69b4, #00d4ff);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
+  animation: particleExplode 1.5s ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes particleExplode {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+      calc(cos(var(--angle)) * var(--distance)),
+      calc(sin(var(--angle)) * var(--distance))
+    ) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ⚡ Flash effect */
+.flash-effect {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
+  pointer-events: none;
+  animation: flashPulse 0.6s ease-out forwards;
+  z-index: 50;
+}
+
+@keyframes flashPulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 🌀 Floating orbs */
+.floating-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orb {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.3;
+}
+
+.orb:nth-child(1) {
+  top: 10%;
+  left: 10%;
+}
+
+.orb:nth-child(2) {
+  top: 50%;
+  right: 10%;
+}
+
+.orb:nth-child(3) {
+  bottom: 10%;
+  left: 50%;
 }
 
 /* glowing text */
@@ -101,38 +220,58 @@ body {
   }
 }
 
-/* 🎵 music pulse indicator */
+/* 🎵 EPIC music pulse indicator */
 .music-indicator {
   position: fixed;
   bottom: 25px;
   left: 25px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: white;
   font-size: 14px;
-  opacity: 0.7;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 1px;
   animation: musicPulse 1.2s infinite ease-in-out;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  padding: 8px 16px;
-  border-radius: 20px;
+  background: rgba(10, 14, 39, 0.8);
+  border: 2px solid rgba(255, 20, 147, 0.5);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.4), inset 0 0 20px rgba(255, 20, 147, 0.1);
+  z-index: 100;
 }
 
 @keyframes musicPulse {
   0% {
     transform: scale(1);
-    opacity: 0.6;
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4), inset 0 0 20px rgba(255, 20, 147, 0.1);
   }
   50% {
-    transform: scale(1.15);
+    transform: scale(1.1);
     opacity: 1;
+    box-shadow: 0 0 40px rgba(255, 20, 147, 0.8), inset 0 0 30px rgba(255, 20, 147, 0.3);
   }
   100% {
     transform: scale(1);
-    opacity: 0.6;
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4), inset 0 0 20px rgba(255, 20, 147, 0.1);
   }
+}
+
+/* Bounce animation for music icon */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.music-indicator svg {
+  animation: bounce 1s infinite;
 }
 
 /* Responsive */

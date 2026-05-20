@@ -1,66 +1,169 @@
 .proposal-container {
-    height: 100vh;
-    background: radial-gradient(circle at center, #000 0%, #1a001f 60%, #000 100%);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #141829 100%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.intro {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.intro h1 {
+  font-size: clamp(2rem, 8vw, 4rem);
+  animation: glow 2s infinite alternate, float 3s ease-in-out infinite;
+  font-weight: 800;
+}
+
+.trap {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  cursor: pointer;
+  animation: fadeIn 1s ease-in-out;
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.final {
+  animation: scaleIn 0.8s ease-out;
+}
+
+.final h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  animation: glow 2s infinite alternate;
+}
+
+.final h2 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin-top: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.yes {
+  padding: 16px 48px;
+  border: none;
+  border-radius: 40px;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  background: linear-gradient(45deg, #ff1493, #ff69b4, #ff8fab);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+  min-height: 48px;
+}
+
+.yes:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 50px rgba(255, 20, 147, 0.8);
+}
+
+.yes:active {
+  transform: scale(0.95);
+}
+
+.engaged {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.engaged h1 {
+  font-size: clamp(2rem, 8vw, 4rem);
+  background: linear-gradient(45deg, #ff1493, #ff69b4, #667eea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glow 2s infinite alternate, float 3s ease-in-out infinite;
+}
+
+.engaged p {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  max-width: 600px;
+  line-height: 1.8;
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+    filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.4));
   }
-  
-  .intro h1 {
-    font-size: 2rem;
-    animation: glow 2s infinite alternate;
+  to {
+    text-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
+    filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.8));
   }
-  
-  .trap {
-    font-size: 1.5rem;
-    cursor: pointer;
-    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
-  
-  .final h1 {
-    font-size: 2rem;
+  50% {
+    transform: translateY(-20px);
   }
-  
-  .final h2 {
-    margin-top: 20px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
   }
-  
-  .buttons {
-    margin-top: 30px;
+  50% {
+    opacity: 1;
   }
-  
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .proposal-container {
+    padding: 16px;
+  }
+
   .yes {
-    padding: 15px 40px;
-    border: none;
-    border-radius: 40px;
-    font-size: 1.2rem;
-    background: linear-gradient(45deg, #ff0066, #ff66cc);
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+    width: 100%;
+    max-width: 300px;
   }
-  
-  .yes:hover {
-    transform: scale(1.1);
-  }
-  
-  .engaged h1 {
-    font-size: 2rem;
-    color: gold;
-    animation: glow 1.5s infinite alternate;
-  }
-  
-  @keyframes glow {
-    from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 30px red; }
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+}
   
