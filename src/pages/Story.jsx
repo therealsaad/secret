@@ -1,53 +1,24 @@
-import { useState, useEffect } from "react";
-import { supabase } from "../supabase.js";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Heart, Sparkles } from "lucide-react";
+import { useStories } from "../hooks/useStories.js";
 
 function Story() {
-  const [stories, setStories] = useState([]);
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("me");
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetchStories();
-  }, []);
+  // Default romantic stories
+  const defaultStories = [
+    { text: "The moment I met you, I knew my heart had found home. Your smile changed everything for me.", author: "her" },
+    { text: "I love the way you laugh at my jokes, even the terrible ones. You make every moment magical.", author: "me" },
+    { text: "In your eyes, I see my future, my forever, my everything. You are my greatest blessing.", author: "her" },
+    { text: "Every day with you is a love story unfolding. I'm grateful for every single moment we share.", author: "me" },
+    { text: "You didn't just find a place in my heart; you became the reason my heart beats. I love you endlessly.", author: "her" },
+    { text: "The distance doesn't matter because my heart is always with you. You're my greatest adventure.", author: "me" },
+  ];
 
-  const fetchStories = async () => {
-    try {
-      setIsLoading(true);
-      const { data, error } = await supabase
-        .from("stories")
-        .select("*")
-        .order("created_at", { ascending: true });
-
-      if (!error) setStories(data || []);
-    } catch (err) {
-      console.log("Error fetching stories:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const addStory = async () => {
-    if (!text.trim()) return;
-
-    try {
-      const { error } = await supabase.from("stories").insert([
-        {
-          text,
-          author,
-        },
-      ]);
-
-      if (!error) {
-        setText("");
-        fetchStories();
-      }
-    } catch (err) {
-      console.log("Error adding story:", err);
-    }
-  };
+  // Use custom hook for story management
+  const { stories, isLoading, addStory } = useStories(defaultStories);
 
   return (
     <motion.div
@@ -108,7 +79,7 @@ function Story() {
             </select>
 
             <motion.button
-              onClick={addStory}
+              onClick={() => addStory(text, author)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn btn-primary flex items-center justify-center gap-2 w-full md:w-auto"
